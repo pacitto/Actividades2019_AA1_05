@@ -1,6 +1,7 @@
 #include "DynArray.h"
 
 
+
 #pragma region Constructors  
 DynArray::DynArray()
 {
@@ -95,7 +96,7 @@ void DynArray::push(int val)
 void DynArray::pop()
 {
 	size -= 1;
-	data = new int[size];
+	data = new int[size];  //perdemos valores 
 
 }
 void DynArray::insert(int position, int val)
@@ -112,15 +113,30 @@ void DynArray::insert(int position, int val)
 }
 void DynArray::erase(int position)
 {
-
+	for (int i = position; i < size; i++)
+	{
+		data[i] = data[i + 1]; 
+	}
+	size--; 
 }
 void DynArray::erase(int first, int last)
 {
-
+	 
+	for (int i = first; i < size; i++)
+	{
+		for (int j = last; j > first; j--)
+		{
+			int aux = data[j + 1]; 
+			data[j + 1] = data[j];
+			data[j] = aux; 
+				 
+		}
+	}
 }
 void DynArray::clear()
 {
-
+	size = 0; 
+	data = new int[size]; 
 }
 
 #pragma endregion
@@ -136,6 +152,10 @@ void DynArray::copy(int *first, int *last, int *dest)
 }
 void DynArray::print()
 {
-
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << data[i];
+	}
+	std::cout<<std::endl; 
 }
 #pragma endregion
